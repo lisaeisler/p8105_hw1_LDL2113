@@ -5,21 +5,30 @@ date: "9/12/2019"
 output: html_document
 ---
 
-I'm an R Markdown document! 
-
-# Section 1
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
-
-```{r}
-samp = rnorm(100)
-length(samp)
+```{r setup, include = FALSE}
+library(tidyverse)
 ```
 
-# Section 2
+# Problem 1
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+The purpose of this problem is to examine a few data types/classes in R for homework 1.
 
-changes!!
+```{r}
+example_df = tibble(
+  normal = rnorm(8),
+  normal_pos = normal > 0,
+  vec_char = c("My", "name", "is", "Lisa", "Danielle", "Eisler", "MD", "MS"),
+  vec_factor = factor(c("A", "B", "C", "C", "B", "A", "B", "C"))
+)
+```
+
+The mean of the numeric variable is `r mean(pull(example_df, normal))`.
+
+The mean of the logical variable is `r mean(pull(example_df, normal_pos))`.
+
+The mean of the character variable is `r mean(pull(example_df, vec_char))`.
+
+The mean of the factor variable is `r mean(pull(example_df, vec_char))`.
+
+
+
