@@ -1,34 +1,100 @@
 ---
 title: "Homework 1"
 author: "Lisa Eisler"
-date: "9/16/2019"
+date: "9/17/2019"
 output: html_document
 ---
 
-```{r setup, include = FALSE}
+```{r setup, include=FALSE}
 library(tidyverse)
 ```
 
 # Problem 1
 
-The purpose of this problem is to examine a few data types/classes in R for homework 1.
+In which we demonstrate the creation and manipulation of variable types and introduce coercion.
 
+Here is a **code chunk** that creates hw1_df1 sampling from a _normal distribution_:
 ```{r}
-example_df = tibble(
+hw1_df1 = tibble(
   normal = rnorm(8),
   normal_pos = normal > 0,
-  vec_char = c("My", "name", "is", "Lisa", "Danielle", "Eisler", "MD", "MS"),
-  vec_factor = factor(c("A", "B", "C", "C", "B", "A", "B", "C"))
+  name_char = c("My", "name", "is", "Lisa", "Danielle", "Eisler", "MD", "MS"),
+  letter_factor = factor(c("Yes", "No", "Maybe", "Maybe", "No", "Yes", "Yes", "No"))
 )
 ```
 
-The mean of the numeric variable is `r mean(pull(example_df, normal))`.
-
-The mean of the logical variable is `r mean(pull(example_df, normal_pos))`.
-
-The mean of the character variable is `r mean(pull(example_df, vec_char))`.
-
-The mean of the factor variable is `r mean(pull(example_df, vec_char))`.
+The mean of the numeric variable is `r mean(pull(hw1_df1, normal))`.
+The mean of the logical variable is `r mean(pull(hw1_df1, normal_pos))`.
+The mean of the character variable is `r mean(pull(hw1_df1, name_char))`.
+The mean of the factor variable is `r mean(pull(hw1_df1, letter_factor))`.
+I am unable to take the mean of character and factor variables.
 
 
+Here is a **code chunk** that creates hw1_numeric_df1 sampling from a _normal distribution_, converting our original logical, character, and factor variables to numeric.
 
+```{r, eval=FALSE}
+ hw1numeric_df1 = tibble(
+  normal = rnorm(8),
+  normal_pos = as.numeric(normal > 0),
+  name_char = as.numeric(c("My", "name", "is", "Lisa", "Danielle", "Eisler", "MD", "MS")),
+  letter_factor = as.numeric(factor(c("Yes", "No", "Maybe", "Maybe", "No", "Yes", "Yes", "No")))
+)
+```
+
+Logical variable values are convereted to numbers: True is converted to 1 and False is converted to 0. Factor variable values are converted to a number corresponding to level: A:1, B:2, C:3, etc. Character variable values are converted to NA.
+
+This may explain why we are able to calculate the mean of a logical variable, even prior to converting it to numeric.
+
+Lastly, here is a **code chunk** which creates hw1convert_df1, sampling from a _normal distribution_ and demonstrates conversion and nested conversion of logical variables, with column cross products.
+```{r}
+hw1convert_df1 = tibble(
+  normal = rnorm(8),
+  normal_pos_numeric = as.numeric(normal > 0),
+  normal_pos_factor = as.factor(normal > 0),
+  normal_pos_numeric_factor = as.numeric(as.factor(normal > 0)),
+  product1 = normal*normal_pos_numeric,
+  product2 = normal*normal_pos_factor,
+  product3 = normal*normal_pos_numeric_factor
+)
+
+```
+
+#Problem 2
+
+Here is a **code chunk** that creates hw1_df2 sampling from a _normal distribution_:
+```{r}
+hw1_df2 = tibble(
+  x = rnorm(500),
+  y = rnorm(500),
+  sum_greater1 = x + y > 1,
+  sum_greater1numeric = as.numeric(x + y > 1),
+  sum_greater1factor = as.factor(sum_greater1numeric)
+)
+```
+
+The number of rows is
+`r nrow(hw1_df2)`.
+The number of columns is
+`r ncol(hw1_df2)`.
+The mean of x is 
+`r mean(pull(hw1_df2, x))`.
+The median of x is
+`r median(pull(hw1_df2, x))`.
+The standard deviation of x is
+`r sd(pull(hw1_df2, x))`.
+The proportion of cases for which x + y > 1 is to be determined.
+
+Here is a scatter plot adding color using logical variable.
+```{r yx_scatter1}
+ggplot(hw1_df2, aes(x = x, y = y, color = sum_greater1)) + geom_point()
+```
+
+Here is a scatter plot adding color using numeric variable.
+```{r yx_scatter2}
+ggplot(hw1_df2, aes(x = x, y = y, color = sum_greater1numeric)) + geom_point()
+```
+
+Here is a scatter plot adding color using factor variable.
+```{r yx_scatter3}
+ggplot(hw1_df2, aes(x = x, y = y, color = sum_greater1factor)) + geom_point()
+```
