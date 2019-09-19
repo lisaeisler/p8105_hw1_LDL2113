@@ -52,14 +52,16 @@ hw1convert_df1 = tibble(
   normal_pos_numeric = as.numeric(normal > 0),
   normal_pos_factor = as.factor(normal > 0),
   normal_pos_numeric_factor = as.numeric(as.factor(normal > 0)),
-  product1 = normal*normal_pos_numeric,
-  product2 = normal*normal_pos_factor,
-  product3 = normal*normal_pos_numeric_factor
+  product_1 = normal*normal_pos_numeric,
+  product_2 = normal*normal_pos_factor,
+  product_3 = normal*normal_pos_numeric_factor
 )
 
 ```
 
-#Problem 2
+# Problem 2
+
+In which we demonstrate the use of inline r code and create color-coded scatter plots
 
 Here is a **code chunk** that creates hw1_df2 sampling from a _normal distribution_:
 ```{r}
@@ -98,3 +100,5 @@ Here is a scatter plot adding color using factor variable.
 ```{r yx_scatter3}
 ggplot(hw1_df2, aes(x = x, y = y, color = sum_greater1factor)) + geom_point()
 ```
+
+The scatter plots display the same color-coded results.
