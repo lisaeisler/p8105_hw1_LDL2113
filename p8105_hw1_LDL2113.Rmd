@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+set.seed(1)
 ```
 
 # Problem 1
@@ -84,7 +85,9 @@ The median of x is
 `r median(pull(hw1_df2, x))`.
 The standard deviation of x is
 `r sd(pull(hw1_df2, x))`.
-The proportion of cases for which x + y > 1 is to be determined.
+The proportion of cases for which x + y > 1 is True is
+`r sum(pull(hw1_df2, sum_greater1numeric)) / length(pull(hw1_df2, sum_greater1numeric))`.
+
 
 Here is a scatter plot adding color using logical variable.
 ```{r yx_scatter1}
