@@ -1,7 +1,7 @@
 ---
 title: "Homework 1"
 author: "Lisa Eisler"
-date: "9/17/2019"
+date: "9/19/2019"
 output: html_document
 ---
 
@@ -104,4 +104,4 @@ Here is a scatter plot adding color using factor variable.
 ggplot(hw1_df2, aes(x = x, y = y, color = sum_greater1factor)) + geom_point()
 ```
 
-The scatter plots display the same color-coded results.
+The color coded results appear the same whether the variable type is numeric, logical, or factor.
